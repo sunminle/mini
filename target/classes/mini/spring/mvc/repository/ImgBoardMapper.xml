@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "mini.spring.mvc.repository.ImgBoardMapper">
+	
+	<select id="maxNum" resultType="int">
+		select NVL(max(num),0) from imgboard
+	</select>
+	
+	<insert id="insert" parameterType="mini.spring.mvc.bean.ImgBoardDTO">
+		insert into imgboard values(imgboard_seq.NEXTVAL,#{writer},#{title},#{content},sysdate,0,#{ref},#{re_step},#{re_level},#{isfile})
+	</insert>
+	
+	<select id = "list" resultType="mini.spring.mvc.bean.ImgBoardDTO">
+		select * from imgboard order by num desc
+	</select>
+</mapper>
