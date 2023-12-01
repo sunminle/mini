@@ -5,13 +5,10 @@ import java.util.Date;
 import lombok.Data;
 
 @Data
-public class ImgBoardDTO {
+public class ImgBoardReviewDTO {
 	private int num;
-	private String writer;
-	private String title;
+	private String id;
 	private String content;
 	private Date reg_date;
-	private int readcount;
-	private int isfile;
-	private String firstimg;
+	private int imgboardnum;
 }

@@ -1,11 +1,23 @@
 package mini.spring.mvc.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
+
 import mini.spring.mvc.bean.ImgBoardDTO;
+import mini.spring.mvc.bean.ImgBoardFileDTO;
 
 public interface ImgBoardService {
-	public int maxNum();
 	public void insert(ImgBoardDTO dto);
-	public List<ImgBoardDTO> list();
+	public void list(int pageNum, Model model);
+	public int listCount();
+	public ImgBoardDTO content(int num);
+	public void readcountUp(int num);
+	public int fileInsert(ArrayList<MultipartFile> files, String path);
+	public int maxNum();
+	public String firstImgSelect(int num);
+	public List<String> fileName(int num);
 }
