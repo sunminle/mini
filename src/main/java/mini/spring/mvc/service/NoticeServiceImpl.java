@@ -19,4 +19,9 @@ public class NoticeServiceImpl implements NoticeService{
 		return mapper.getAllList();
 	}
 
+	@Override
+	public NoticeDTO getNotice(int num) {
+		return mapper.getOne(num);
+	}
+
 }
