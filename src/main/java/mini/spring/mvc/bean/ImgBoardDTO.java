@@ -14,4 +14,5 @@ public class ImgBoardDTO {
 	private int readcount;
 	private int isfile;
 	private String firstimg;
+	private int review;
 }

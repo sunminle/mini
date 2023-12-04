@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 import mini.spring.mvc.bean.ImgBoardDTO;
 import mini.spring.mvc.bean.ImgBoardFileDTO;
+import mini.spring.mvc.bean.ImgBoardReviewDTO;
 
 public interface ImgBoardMapper {
 	
@@ -20,4 +21,13 @@ public interface ImgBoardMapper {
 	public void firstImg(ImgBoardDTO dto);
 	public String firstImgSelect(int num);
 	public List<String> fileName(int num);
+	public void reviewInsert(ImgBoardReviewDTO dto);
+	public List<ImgBoardReviewDTO> reviewList(int num);
+	public void reviewUp(int num);
+	public void deleteReview(int num);
+	public void deleteFile(int num);
+	public void deleteNum(int num);
+	public List<String> findFileName(int num);
+	public int isFile(int num);
+	
 }

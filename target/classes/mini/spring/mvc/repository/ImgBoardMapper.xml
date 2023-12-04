@@ -45,6 +45,36 @@
 		select filename from imgboard_file where imgboardnum = #{num}
 	</select>
 	
+	<insert id="reviewInsert" parameterType="mini.spring.mvc.bean.ImgBoardReviewDTO">
+		insert into imgboard_review values (imgboard_review_seq.NEXTVAL,#{id},#{content},sysdate,#{imgboardnum})
+	</insert>
 	
+	<update id="reviewUp">
+		update imgboard set review = review+1 where num = #{num}
+	</update>
+	
+	<select id="reviewList" resultType="mini.spring.mvc.bean.ImgBoardReviewDTO">
+		select * from imgboard_review where imgboardnum = #{num} order by reg_date desc
+	</select>
+	
+	<delete id="deleteReview">
+		delete from imgboard_review where imgboardnum = #{num}
+	</delete>
+	
+	<delete id="deleteFile">
+		delete from imgboard_file where imgboardnum = #{num}
+	</delete>
+	
+	<delete id="deleteNum">
+		delete from imgboard where num = #{num}
+	</delete>
+	
+	<select id="findFileName">
+		select filename from imgboard_file where imgboardnum = #{num}
+	</select>
+	
+	<select id="isFile">
+		select isfile from imgboard where num = #{num}
+	</select>
 	
 </mapper>

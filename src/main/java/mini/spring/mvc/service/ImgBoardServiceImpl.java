@@ -1,6 +1,9 @@
 package mini.spring.mvc.service;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -15,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import mini.spring.mvc.bean.ImgBoardDTO;
 import mini.spring.mvc.bean.ImgBoardFileDTO;
+import mini.spring.mvc.bean.ImgBoardReviewDTO;
 import mini.spring.mvc.repository.ImgBoardMapper;
 
 @Service
@@ -127,6 +131,65 @@ public class ImgBoardServiceImpl implements ImgBoardService{
 	public List<String> fileName(int num) {
 		
 		return mapper.fileName(num);
+	}
+
+	@Override
+	public void reviewInsert(ImgBoardReviewDTO dto) {
+		mapper.reviewInsert(dto);
+		
+	}
+
+	@Override
+	public List<ImgBoardReviewDTO> reviewList(int num) {
+		return mapper.reviewList(num);
+	}
+
+	@Override
+	public void reviewUp(int num) {
+		mapper.reviewUp(num);
+	}
+
+	@Override
+	public void deleteReview(int num) {
+		mapper.deleteReview(num);
+		
+	}
+	
+	@Override
+	public void deleteFile(int num,String filePath) {
+		List<String> fileName = Collections.EMPTY_LIST;
+		int isfile = isFile(num);
+		if(isfile > 0) {
+			fileName = mapper.findFileName(num);
+			for(String fn : fileName) {
+				String realPath = filePath+fn;
+				Path path = Paths.get(realPath);
+				try {
+					Files.delete(path);
+				}catch(Exception e) {
+					e.printStackTrace();
+				}
+				
+			}
+		}
+		mapper.deleteFile(num);
+		
+	}
+
+	@Override
+	public void deleteNum(int num) {
+		mapper.deleteNum(num);
+		
+	}
+
+	@Override
+	public List<String> findFileName(int num) {
+		return mapper.findFileName(num);
+	}
+
+	@Override
+	public int isFile(int num) {
+		return mapper.isFile(num);
 	}
 
 
