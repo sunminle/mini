@@ -41,7 +41,7 @@
 					<input type="submit" value="글쓰기" >  
 			
 				<td colspan=2 bgcolor="${value_c}" align="center"> 
-					<button type="button" onclick="location.href='list.jsp' ">목록</button>
+					<button type="button" onclick="location.href='list.jsp' ">목록!</button>
 
 						
 				</td>
