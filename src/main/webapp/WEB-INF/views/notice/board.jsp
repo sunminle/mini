@@ -59,10 +59,10 @@
 						<table class="table text-center">
 							<thead>
 								<tr>
-									<th>no.</th>
-									<th>title</th>
-									<th>reg date</th>
-									<th>count</th>
+									<th>No.</th>
+									<th>Title</th>
+									<th>Reg date</th>
+									<th>Count</th>
 								</tr>
 							</thead>
 							<tbody>
