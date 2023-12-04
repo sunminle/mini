@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "mini.spring.mvc.repository.ImgBoardMapper">
+	
+	
+	<insert id="insert" parameterType="mini.spring.mvc.bean.ImgBoardDTO">
+		insert into imgboard (num,writer,title,content,reg_date,isfile,firstimg) values(imgboard_seq.NEXTVAL,#{writer},#{title},#{content},sysdate,#{isfile},#{firstimg})
+	</insert>
+	
+	<select id = "list" resultType="mini.spring.mvc.bean.ImgBoardDTO" parameterType="hashmap">
+		<![CDATA[
+			select * from (select b.*, rownum r from (select * from imgboard order by num desc)b) where r >= #{start} and r<= #{end}
+		]]>
+	</select>
+	
+	<select id = "listCount" >
+		select NVL(count(num),0) from imgboard
+	</select>
+	
+	<select id = "content" parameterType="mini.spring.mvc.bean.ImgBoardDTO">
+		select * from imgboard where num = #{num}
+	</select>
+	
+	<update id="readcountUp">
+		update imgboard set readcount = readcount+1 where num = #{num}
+	</update>
+	
+	<insert id = "fileInsert" parameterType="mini.spring.mvc.bean.ImgBoardFileDTO">
+		insert into imgboard_file values (imgboard_file_seq.NEXTVAL, #{imgboardnum},#{filename})
+	</insert>
+	
+	<select id = "maxNum" >
+		select NVL(max(num),0) from imgboard
+	</select>
+	
+	<select id="firstImgSelect" resultType="String">
+		<![CDATA[
+			(select * from (select filename from imgboard_file where imgboardnum = #{num} order by num asc) where rownum <= 1)
+		]]>
+	</select>
+	
+	<select id = "fileName">
+		select filename from imgboard_file where imgboardnum = #{num} order by num asc
+	</select>
+	
+	<insert id="reviewInsert" parameterType="mini.spring.mvc.bean.ImgBoardReviewDTO">
+		insert into imgboard_review values (imgboard_review_seq.NEXTVAL,#{id},#{content},sysdate,#{imgboardnum})
+	</insert>
+	
+	<update id="reviewUp">
+		update imgboard set review = review+1 where num = #{num}
+	</update>
+	
+	<select id="reviewList" resultType="mini.spring.mvc.bean.ImgBoardReviewDTO">
+		select * from imgboard_review where imgboardnum = #{num} order by reg_date desc
+	</select>
+	
+	<delete id="deleteReview">
+		delete from imgboard_review where imgboardnum = #{num}
+	</delete>
+	
+	<delete id="deleteFile">
+		delete from imgboard_file where imgboardnum = #{num}
+	</delete>
+	
+	<delete id="deleteNum">
+		delete from imgboard where num = #{num}
+	</delete>
+	
+	<select id="findFileName">
+		select filename from imgboard_file where imgboardnum = #{num}
+	</select>
+	
+	<select id="isFile">
+		select isfile from imgboard where num = #{num}
+	</select>
+	
+	<update id="updateContent" parameterType="mini.spring.mvc.bean.ImgBoardDTO">
+		update imgboard set title = #{title} , content = #{content} where num = #{num}
+	</update>
+	
+	<delete id="deleteFileName" parameterType="mini.spring.mvc.bean.ImgBoardFileDTO">
+		delete imgboard_file where filename = #{filename} and imgboardnum = #{imgboardnum}
+	</delete>
+	
+	<update id="updateFirstImg" parameterType="mini.spring.mvc.bean.ImgBoardDTO">
+		update imgboard set firstimg = #{firstimg} , isfile = #{isfile} where num = #{num}
+	</update>
+	
+	<select id="firstImg" resultType="String">
+		<![CDATA[
+			(select NVL((select filename from imgboard_file where imgboardnum = #{num} order by num asc fetch first 1 rows only), NULL) as result from dual)
+		]]>
+	</select>
+	
+	<delete id = "deleteReviewNum">
+		delete imgboard_review where num = #{reviewNum}
+	</delete>
+	
+	<update id="reviewMinus">
+		update imgboard set review = review-1 where num = #{num}
+	</update>
+	
+</mapper>
