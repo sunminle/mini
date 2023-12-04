@@ -14,6 +14,16 @@
                 alert("삭제가 취소되었습니다.");
             }
         }
+        
+        function confirmUpdate() {
+            var result = confirm("글을 수정하시겠습니까?");
+            if (result) {
+                window.location="/imgboard/updateForm?num=${num}&pageNum=${pageNum}"
+            } else {
+                alert("수정이 취소되었습니다.");
+            }
+        }
+        
     </script>
 
 
@@ -179,10 +189,11 @@
         <h2>내용</h2>
         <p>${dto.content}</p>
         <h2><input type="button" value="뒤로가기" onclick="window:location='/imgboard/list?pageNum=${pageNum}'"></h2>
+        <h2><input type="button" value="글 수정" onclick="confirmUpdate()"></h2>
         <h2><input type="button" value="글 삭제" onclick="confirmDelete()"></h2>
         <h2>Review</h2>
         <c:if test="${dto.review > 0}">
-            <a>${dto.review}개의 리뷰가 있습니다.</a>
+            <a>${dto.review}개의 댓글이 있습니다.</a>
         </c:if>
         <c:if test="${dto.review == 0}">
             <a>등록된 댓글이 없습니다.</a> <br/> <br/>
@@ -211,7 +222,7 @@
                 <c:forEach var="review" items="${reviewList}">
                     <tr class="review-item">
                         <td class="nickname" style="width: 80px;">${review.id}</td>
-                        <td class="comment" style="white-space: pre-line;">${review.content}</td>
+                        <td class="comment" style="white-space: pre-line;">${review.content}<input type="button" value="X" onclick="window:location='/imgboard/deleteReview?num=${num}&pageNum=${pageNum}&reviewNum=${review.num}'"></td>
                         <td class="date" style="width: 100px;"><fmt:formatDate value="${review.reg_date}" pattern="yyyy-MM-dd HH:mm"/></td>
                     </tr>
                 </c:forEach>

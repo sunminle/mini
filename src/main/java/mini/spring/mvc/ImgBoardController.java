@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import mini.spring.mvc.bean.ImgBoardDTO;
+import mini.spring.mvc.bean.ImgBoardFileDTO;
 import mini.spring.mvc.bean.ImgBoardReviewDTO;
 import mini.spring.mvc.service.ImgBoardService;
 
@@ -102,6 +103,48 @@ public class ImgBoardController {
 		service.deleteReview(num);
 		
 		return "imgboard/deletePro";
+	}
+	
+	@RequestMapping("updateForm")
+	public String updateForm(int num, Model model,int pageNum) {
+		ImgBoardDTO dto = service.content(num);
+		List<String> fileNameList = Collections.EMPTY_LIST;
+		if(dto.getIsfile()!=0) {
+			fileNameList = service.fileName(num);
+		}
+		model.addAttribute("dto",dto);
+		model.addAttribute("fileNameList",fileNameList);
+		model.addAttribute("pageNum",pageNum);
+		model.addAttribute("num",num);
+		return "imgboard/updateForm";
+	}
+	
+	@RequestMapping("updatePro")
+	public String updatePro(int num, Model model, ImgBoardDTO dto, int pageNum) {
+		dto.setNum(num);
+		service.updateContent(dto);
+		model.addAttribute("pageNum",pageNum);
+		model.addAttribute("num",num);
+		return "imgboard/updatePro";
+	}
+	
+	@RequestMapping("deleteFile")
+	public String deleteFile(Model model, int pageNum,ImgBoardFileDTO dto, HttpServletRequest request) {
+		String filePath = request.getServletContext().getRealPath("/resources/file/imgBoard/");
+		service.deleteFile(dto, filePath);
+		int num = dto.getImgboardnum();
+		model.addAttribute("pageNum",pageNum);
+		model.addAttribute("num",num);
+		return "imgboard/deleteFile";
+	}
+	
+	@RequestMapping("deleteReview")
+	public String deleteReview(Model model, int num , int pageNum, int reviewNum) {
+		service.deleteReviewNum(reviewNum);
+		service.reviewMinus(num);
+		model.addAttribute("pageNum",pageNum);
+		model.addAttribute("num",num);
+		return "imgboard/deleteReview";
 	}
 	
 }

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import mini.spring.mvc.bean.ImgBoardDTO;
 import mini.spring.mvc.bean.ImgBoardFileDTO;
@@ -29,5 +30,10 @@ public interface ImgBoardMapper {
 	public void deleteNum(int num);
 	public List<String> findFileName(int num);
 	public int isFile(int num);
-	
+	public void updateContent(ImgBoardDTO dto);
+	public void deleteFileName(ImgBoardFileDTO dto);
+	public void updateFirstImg(ImgBoardDTO dto);
+	public String firstImg(int num);
+	public void deleteReviewNum(int reviewNum);
+	public void reviewMinus(int num);
 }

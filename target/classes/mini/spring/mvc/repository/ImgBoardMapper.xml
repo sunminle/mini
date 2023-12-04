@@ -42,7 +42,7 @@
 	</select>
 	
 	<select id = "fileName">
-		select filename from imgboard_file where imgboardnum = #{num}
+		select filename from imgboard_file where imgboardnum = #{num} order by num asc
 	</select>
 	
 	<insert id="reviewInsert" parameterType="mini.spring.mvc.bean.ImgBoardReviewDTO">
@@ -76,5 +76,31 @@
 	<select id="isFile">
 		select isfile from imgboard where num = #{num}
 	</select>
+	
+	<update id="updateContent" parameterType="mini.spring.mvc.bean.ImgBoardDTO">
+		update imgboard set title = #{title} , content = #{content} where num = #{num}
+	</update>
+	
+	<delete id="deleteFileName" parameterType="mini.spring.mvc.bean.ImgBoardFileDTO">
+		delete imgboard_file where filename = #{filename} and imgboardnum = #{imgboardnum}
+	</delete>
+	
+	<update id="updateFirstImg" parameterType="mini.spring.mvc.bean.ImgBoardDTO">
+		update imgboard set firstimg = #{firstimg} , isfile = #{isfile} where num = #{num}
+	</update>
+	
+	<select id="firstImg" resultType="String">
+		<![CDATA[
+			(select NVL((select filename from imgboard_file where imgboardnum = #{num} order by num asc fetch first 1 rows only), NULL) as result from dual)
+		]]>
+	</select>
+	
+	<delete id = "deleteReviewNum">
+		delete imgboard_review where num = #{reviewNum}
+	</delete>
+	
+	<update id="reviewMinus">
+		update imgboard set review = review-1 where num = #{num}
+	</update>
 	
 </mapper>

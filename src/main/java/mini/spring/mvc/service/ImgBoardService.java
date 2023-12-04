@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import mini.spring.mvc.bean.ImgBoardDTO;
@@ -29,4 +30,11 @@ public interface ImgBoardService {
 	public void deleteNum(int num);
 	public List<String> findFileName(int num);
 	public int isFile(int num);
+	public void updateContent(ImgBoardDTO dto);
+	public void deleteFileName(ImgBoardFileDTO dto);
+	public void deleteFile(ImgBoardFileDTO dto, String filePath);
+	public void updateFirstImg(ImgBoardDTO dto);
+	public String firstImg(int num);
+	public void deleteReviewNum(int reviewNum);
+	public void reviewMinus(int num);
 }

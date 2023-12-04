@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import mini.spring.mvc.bean.ImgBoardDTO;
@@ -29,6 +30,9 @@ public class ImgBoardServiceImpl implements ImgBoardService{
 	
 	@Autowired
 	private ImgBoardFileDTO imgBoardFileDTO;
+	
+	@Autowired
+	private ImgBoardDTO imgBoardDTO;
 	
 	
 	@Autowired
@@ -192,10 +196,62 @@ public class ImgBoardServiceImpl implements ImgBoardService{
 		return mapper.isFile(num);
 	}
 
+	@Override
+	public void updateContent(ImgBoardDTO dto) {
+		mapper.updateContent(dto);
+		
+	}
 
+	@Override
+	public void deleteFileName(ImgBoardFileDTO dto) {
+		mapper.deleteFileName(dto);
+		
+	}
 
+	@Override
+	public void deleteFile(ImgBoardFileDTO dto, String filePath) {
+		String fileName = dto.getFilename();
+		int num = dto.getImgboardnum();
+		int isfile = isFile(num)-1;
+		deleteFileName(dto);
+		String realPath = filePath+fileName;
+		Path path = Paths.get(realPath);
+		try {
+			Files.delete(path);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		String firstImg = firstImg(num);
+		if(firstImg==null) {
+			firstImg = "firstimgDefault.jpg";
+		}
+		imgBoardDTO.setNum(num);
+		imgBoardDTO.setIsfile(isfile);
+		imgBoardDTO.setFirstimg(firstImg);
+		updateFirstImg(imgBoardDTO);
+	}
 
+	@Override
+	public void updateFirstImg(ImgBoardDTO dto) {
+		mapper.updateFirstImg(dto);
+		
+	}
 
+	@Override
+	public String firstImg(int num) {
+		
+		return mapper.firstImg(num);
+	}
 
+	@Override
+	public void deleteReviewNum(int reviewNum) {
+		mapper.deleteReviewNum(reviewNum);
+		
+	}
+
+	@Override
+	public void reviewMinus(int num) {
+		mapper.reviewMinus(num);
+	}
 
 }
