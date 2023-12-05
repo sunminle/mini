@@ -11,4 +11,5 @@
 	<beans:bean id = "imgBoardFileDTO" class = "mini.spring.mvc.bean.ImgBoardFileDTO" />
 	<beans:bean id = "imgBoardReviewDTO" class = "mini.spring.mvc.bean.ImgBoardReviewDTO" />
 	<beans:bean id = "imgBoardMap" class = "java.util.HashMap" />	
+	<beans:bean id = "guestMap" class = "java.util.HashMap" />
 </beans:beans>
