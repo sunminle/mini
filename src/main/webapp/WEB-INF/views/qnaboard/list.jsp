@@ -27,10 +27,10 @@
 				    
 				   <c:forEach var = "list" items = "${list}">
 					 <tr height="70" bgcolor="#fff0f0">
-						    <td align="center"  width="200">${list.num}</td>
+						    <td align="center"  width="200"><a href="view?num=${list.num}">${list.num}</td>
 						    <td align="center"  width="200">${list.reg_date}</td>
 						    <td align="center"  width="200">${list.writer}</td>
-						    <td align="center" width="200" >${list.title}</td>
+						    <td align="center" width="200"><a href="view?num=${list.num}">${list.title}</td>
 						   
 						</tr>
 					</c:forEach>

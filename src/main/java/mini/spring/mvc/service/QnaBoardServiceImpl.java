@@ -36,15 +36,8 @@ public class QnaBoardServiceImpl implements QnaBoardService{
 
 
 	@Override
-	public List<QnaBoardDTO> view() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void view(QnaBoardDTO dto) throws Exception {
-		// TODO Auto-generated method stub
-		
+	public QnaBoardDTO view(int num) {
+		return mapper.view(num);
 	}
 
 

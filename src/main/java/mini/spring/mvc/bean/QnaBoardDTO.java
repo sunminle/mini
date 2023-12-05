@@ -5,15 +5,15 @@ import java.util.Date;
 import lombok.Data;
 
 @Data
-	public class QnaBoardDTO {
-		private int num;
-		private String writer;
-		private String title;
-		private String content;
-		private Date reg_date;
-		private int readcount;
-		private int ref;
-		private int re_step;
-		private int re_level;
-		private int isfile;
-	}
+public class QnaBoardDTO {
+	private int num;
+	private String writer;
+	private String title;
+	private String content;
+	private Date reg_date;
+	private int readcount;
+	private int ref;
+	private int re_step;
+	private int re_level;
+	private int isfile;
+}

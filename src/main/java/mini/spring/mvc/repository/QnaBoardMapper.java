@@ -18,6 +18,6 @@ public interface QnaBoardMapper {
 	public List<String> fileName(int num);
 	
 	public int isFile(int num);
-	public void view(QnaBoardDTO dto) ;
+	public QnaBoardDTO view(int num);
 
 }

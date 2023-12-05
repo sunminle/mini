@@ -21,11 +21,10 @@
 	</insert>
 	
 	<!-- 게시물 조회 -->
-	<select id="view" resultType="mini.spring.mvc.bean.QnaBoardFileDTO">
-	 select 
- 	 num, title, writer, content, reg_date
+	<select id="view" parameterType="int" resultType="mini.spring.mvc.bean.QnaBoardDTO">
+	 select *
  	from qnaboard
- 	   
+ 	where num=#{num}
 	</select>
 	
 </mapper>

@@ -8,6 +8,5 @@ public interface QnaBoardService {
 	public int maxNum();
 	public void insert(QnaBoardDTO dto) throws Exception;
 	public List<QnaBoardDTO> list();
-	public List<QnaBoardDTO> view();
-	public void view(QnaBoardDTO dto) throws Exception;
+	public QnaBoardDTO view(int num);
 }
