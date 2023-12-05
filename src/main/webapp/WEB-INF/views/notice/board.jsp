@@ -23,6 +23,8 @@
         <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="/resources/css/styles.css" rel="stylesheet" />
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery-latest.min.js"></script>
     </head>
     <body id="page-top">
         <!-- Navigation-->
@@ -35,9 +37,9 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav">
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#notice">NOTICE</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#experience">BOARD</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#education">Q&A</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#skills">VISITORS</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#board">BOARD</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#qna">Q&A</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#visitors">VISITORS</a></li>
                 </ul>
             </div>
         </nav>
@@ -46,56 +48,75 @@
             <!-- About-->
             <section class="resume-section" id="notice">
                 <div class="resume-section-content">
-                    <h1 class="mb-0">
+                    <h1 class="mb-0 ">
                         <span class="text-primary">NOTICE</span>
                     </h1>
-                    <div class="subheading mb-5">
-                        This is notice board, if you have any question, here's 
-                        <a href="#Q&A">Q&A BOARD</a>
-                    </div>
+            <div class="d-flex subheading mb-5 justify-content-between">
+               <div>This is notice board, if you have any question, here's <a href="#Q&A">Q&A BOARD</a></div>
+               
+               <!-- 로그인/로그아웃 상태일때 -->
+               <c:choose>
+                  <c:when test="${empty sessionScope.memId}">
+                     <span class="text-end"><small><a href="/mem/signInUp" target="_blank">LOGIN</a></small></span>
+                  </c:when>
+                  <c:when test="${not empty sessionScope.memId}">
+                     <span class="text-end"><small>Hi, ${memId }!</small></span>
+                  </c:when>
+               </c:choose>
+            </div>
 
-				<div id="noticeBoard" class="d-flex justify-content-center">
-					<div class="w-100">
-						<table class="table text-center">
-							<thead>
-								<tr>
-									<th>No.</th>
-									<th>Title</th>
-									<th>Reg date</th>
-									<th>Count</th>
-								</tr>
-							</thead>
-							<tbody>
-								<c:forEach items="${nList}" var="notice" varStatus="status">
-									<tr>
-										<td>${notice.num}</td>
-										<td><a href="/notice/notice_view?noticeId=${notice.num}">${notice.title}</a></td>
-										<td><fmt:formatDate value="${notice.reg_date}" pattern="yy-MM-dd a hh시" /></td>
-										<td>${notice.readcount}</td>
-									</tr>
-								</c:forEach>
-							</tbody>
-						</table>
+            <div id="noticeBoard" class="d-flex justify-content-center">
+               <div class="w-100">
+                  <table class="table text-center">
+                     <thead>
+                        <tr>
+                           <th>No.</th>
+                           <th>Title</th>
+                           <th>Reg date</th>
+                           <th>Count</th>
+                           <!-- 관리자일때만 보이게 -->
+                           <c:if test="${sessionScope.memId == 'admin' }">
+                              <th>mng</th>
+                           </c:if>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <c:forEach items="${nList}" var="notice" varStatus="status">
+                           <tr>
+                              <td>${notice.num}</td>
+                              <td><a href="/notice/notice_view?noticeId=${notice.num}">${notice.title}</a></td>
+                              <td><fmt:formatDate value="${notice.reg_date}" pattern="yy-MM-dd a hh시" /></td>
+                              <td>${notice.readcount}</td>
+                              <!-- 관리자일때만 보이게 -->
+                              <c:if test="${sessionScope.memId == 'admin' }">
+                                 <td><button class="btn btn-danger deleteBtn" data-notice-num="${notice.num}">Delete</button></td>
+                              </c:if>
+                           </tr>
+                        </c:forEach>
+                     </tbody>
+                  </table>
 
-						<%-- ------------페이징-------------- --%>
-						<div class="d-flex justify-content-center">
-							<c:if test="${prevId ne 0}">
-								<a href="/post/post_list_view?prevId=${prevId}" class="mr-5">&lt;&lt;prev</a>
-							</c:if>
-							<c:if test="${nextId ne 0}">
-								<a href="/post/post_list_view?nextId=${nextId}">next&gt;&gt;</a>
-							</c:if>
+                  <%-- ------------페이징-------------- --%>
+                  <div class="d-flex justify-content-center">
+                     <c:if test="${prevId ne 0}">
+                        <a href="/post/post_list_view?prevId=${prevId}" class="mr-5">&lt;&lt;prev</a>
+                     </c:if>
+                     <c:if test="${nextId ne 0}">
+                        <a href="/post/post_list_view?nextId=${nextId}">next&gt;&gt;</a>
+                     </c:if>
 
-						</div>
-						
-						<!-- 관리자일시 글쓰기 버튼이 보이게 -->
-						<div class="d-flex justify-content-end">
-							<a href="/notice/posting" class="btn btn-info">post</a>
-						</div>
-					</div>
-				</div>
+                  </div>
+                  
+                  <!-- 관리자일시 글쓰기 버튼이 보이게 -->
+                  <c:if test="${sessionScope.memId == 'admin' }">
+                  <div class="d-flex justify-content-end">
+                     <a href="/notice/posting" class="btn btn-info">post</a>
+                  </div>
+                  </c:if>
+               </div>
+            </div>
 
-				<div class="social-icons">
+            <div class="social-icons">
                         <a class="social-icon" href="#!"><i class="fab fa-linkedin-in"></i></a>
                         <a class="social-icon" href="#!"><i class="fab fa-github"></i></a>
                         <a class="social-icon" href="#!"><i class="fab fa-twitter"></i></a>
@@ -109,4 +130,38 @@
         <!-- Core theme JS-->
         <script src="/resources/js/scripts.js"></script>
     </body>
+    
+    <script>
+    $(document).ready(function(){
+       
+      ////////////////글삭제///////////////
+       $('.deleteBtn').on('click',function(){
+          let noticeNum = $(this).data('notice-num');
+          console.log('삭제포스트 :',noticeNum);
+          
+          if (window.confirm("정말 삭제 하시겠습니까?")) {
+              $.ajax({
+                //rq
+                dataType:"JSON",
+                type:"DELETE"
+                ,url:"/notice/board/delete?noticeNum="+noticeNum
+                //rs
+                ,success:function(data){
+                   if(data.result == '성공'){
+                      alert('삭제되었습니다.');
+                      location.href="/notice/board";
+                   }else{
+                      alert(data.errorMessage);
+                   }
+                },error:function(e){
+                   console.log('공지삭제실패');
+                }
+             });
+           } else {
+            console.log("취소");
+           }
+       });
+       ////////////////글삭제////////////////
+    });
+    </script>
 </html>

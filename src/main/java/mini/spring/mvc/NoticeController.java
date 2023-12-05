@@ -32,6 +32,12 @@ private static final Logger Logger = LoggerFactory.getLogger(TestController.clas
 		return "notice/board";
 	}
 	
+	
+	/**
+	 * @param noticeId
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("notice_view")
 	public String postView(@RequestParam("noticeId") String noticeId,Model model) {
 
@@ -49,5 +55,28 @@ private static final Logger Logger = LoggerFactory.getLogger(TestController.clas
 	public String posting() {
 		return "notice/posting";
 	}
+	
+	/*
+	@ResponseBody
+	@GetMapping("delete")
+	public Map<String,Object> delete(@RequestParam("noticeNum") int num,HttpSession session){
+		
+		System.out.println("삭제하려는 공지 넘버 : "+num);
+		
+		//db delete
+		int row = service.deleteNotice(num);
+		
+		//result
+		Map<String,Object> result = new HashMap<>();
+		if(row>0) {
+			result.put("code", 1);
+			result.put("result", "성공");
+		}else {
+			result.put("code",500);
+			result.put("errorMessage", "공지 삭제에 실패했습니다. 코드 불량.");
+		}
+		
+		return result;
+	}*/
 
 }

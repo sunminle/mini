@@ -39,9 +39,9 @@
 		<div class="collapse navbar-collapse" id="navbarResponsive">
 			<ul class="navbar-nav">
 				<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/notice/board">NOTICE</a></li>
-				<li class="nav-item"><a class="nav-link js-scroll-trigger" href="#experience">BOARD</a></li>
-				<li class="nav-item"><a class="nav-link js-scroll-trigger" href="#education">Q&A</a></li>
-				<li class="nav-item"><a class="nav-link js-scroll-trigger" href="#skills">VISITORS</a></li>
+				<li class="nav-item"><a class="nav-link js-scroll-trigger" href="">BOARD</a></li>
+				<li class="nav-item"><a class="nav-link js-scroll-trigger" href="">Q&A</a></li>
+				<li class="nav-item"><a class="nav-link js-scroll-trigger" href="">VISITORS</a></li>
 			</ul>
 		</div>
 	</nav>
@@ -52,7 +52,7 @@
 		<div class="w-100">
 			<h1>글쓰기</h1>
 
-			<input type="text" id="subject" class="form-control" placeholder="제목을 입력해주세요">
+			<input type="text" id="title" class="form-control" placeholder="제목을 입력해주세요">
 			<textarea class="form-control" rows="15" id="content" placeholder="내용을 입력해주세요"></textarea>
 			<div class="d-flex justify-content-end my-3">
 				<input type="file" id="file" accept=".jpg,.jpeg,.png,.gif">
@@ -73,21 +73,21 @@
 
 				// 목록버튼 클릭
 				$('#postListBtn').on('click', function() {
-					location.href = "/post/post_list_view"
+					location.href = "/notice/board"
 				});
 
 				// 모두 지우기 버튼 클릭
 				$('#clearBtn').on('click', function() {
-					$('#subject').val("");
+					$('#title').val("");
 					$('#content').val("");
 				});
 
 				// 글 저장 버튼 클릭
 				$('#postCreateBtn').on('click', function() {
-					let subject = $('#subject').val().trim();
+					let title = $('#title').val().trim();
 					let content = $('#content').val();
 
-					if (subject == '') {
+					if (title == '') {
 						alert("제목을 입력하세요");
 						return;
 					}
@@ -112,30 +112,26 @@
 					// 이미지를 업로드 할 때는 form태그가 있어야 한다(자바스크립트에서 만듬)
 					// append로 넣는 값은 폼태그의 name으로 넣는 것과 같다
 					let formData = new FormData();
-					formData.append("subject", subject);
+					formData.append("title", title);
 					formData.append("content", content);
 					formData.append("file", $('#file')[0].files[0]);//여러개를 올리는거면 배열로 ex)file[1]
 
 					// ajax 통신으로 formData에 있는 데이터 전송
 					$.ajax({
 						//request
-						type : "POST",
-						url : "/post/create",
-						data : formData //form객체를 통째로
-						,
-						enctype : "multipart/form-data" //file업로드를 위한 필수설정
-						,
-						processData : false //file업로드를 위한 필수설정
-						,
-						contentType : false //file업로드를 위한 필수설정
+						type : "POST"
+						,url : "/notice/board/create"
+						,data : formData //form객체를 통째로
+						,enctype : "multipart/form-data" //file업로드를 위한 필수설정
+						,processData : false //file업로드를 위한 필수설정
+						,contentType : false //file업로드를 위한 필수설정
 
 						//response
-						,
-						success : function(data) {
+						,success : function(data) {
 							if (data.code == 1) {
 								//성공
 								alert("메모가 저장되었습니다.");
-								location.href = "/post/post_list_view";
+								location.href = "/notice/board";
 							} else {
 								//실패
 								alert(data.errorMessage);
