@@ -47,7 +47,6 @@
 	<!-- 관리자로 로그인 해야 댓글달기 폼 보이게 -->
 	<c:if test="${status == 100}">   
 	
-	
 		<h3>답글 쓰기</h3>
 
 <form method="post" enctype = "multipart/form-data" name="writeform" action="replyPro" >
