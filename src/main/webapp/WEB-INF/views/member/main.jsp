@@ -67,7 +67,7 @@ form {
              <input style="text-align:center; display:block; margin: 0 auto; color: #ce7d88; background: #EAC7CC; border: none; border-bottom: 1px solid rgba(246, 246, 246, 0.5); padding: 5px;" type = "button" value = "탈퇴" onclick = "window.location='/mem/deleteForm'"> <br />
              <input style="text-align:center; display:block; margin: 0 auto; color: #ce7d88; background: #EAC7CC; border: none; border-bottom: 1px solid rgba(246, 246, 246, 0.5); padding: 5px;" type = "button" value = "이미지게시판" onclick = "window.location='/imgboard/list'"> <br />
 <input style="text-align:center; display:block; margin: 0 auto; color: #ce7d88; background: #EAC7CC; border: none; border-bottom: 1px solid rgba(246, 246, 246, 0.5); padding: 5px;" type = "button" value = "방명록" onclick = "window.location='/gu/guest'"> <br />
-<input style="text-align:center; display:block; margin: 0 auto; color: #ce7d88; background: #EAC7CC; border: none; border-bottom: 1px solid rgba(246, 246, 246, 0.5); padding: 5px;" type = "button" value = "Q&A게시판" onclick = "window.location='/qnaboard/list'"> <br />
+<input style="text-align:center; display:block; margin: 0 auto; color: #ce7d88; background: #EAC7CC; border: none; border-bottom: 1px solid rgba(246, 246, 246, 0.5); padding: 5px;" type = "button" value = "Q&A게시판" onclick = "window.location='/list'"> <br />
 <input style="text-align:center; display:block; margin: 0 auto; color: #ce7d88; background: #EAC7CC; border: none; border-bottom: 1px solid rgba(246, 246, 246, 0.5); padding: 5px;" type = "button" value = "공지게시판" onclick = "window.location='/notice/board'"> <br />
 </div>
 
