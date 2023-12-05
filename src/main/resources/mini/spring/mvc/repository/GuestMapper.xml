@@ -3,55 +3,36 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
-    <mapper namespace = "mini.spring.mvc.repository.GuestMapper">
-    	<select id="count" resultType="int">
-     	select count(*) from guest
-    </select>
-    
-    <select id="list" resultType="mini.spring.mvc.bean.GuestDTO" parameterType="hashmap">
-    
-   	SELECT * FROM guest WHERE num >= #{num, jdbcType=INTEGER} ORDER BY num ASC
-   	
-    </select>
-    
-   
-<select id="listAll" resultType="mini.spring.mvc.bean.GuestDTO" parameterType="java.util.Map">
-    SELECT * FROM guest ORDER BY num desc
-</select>
+    <mapper namespace="mini.spring.mvc.repository.GuestMapper">
 
-    
-    
-    
-    <insert id="writeInsert" parameterType="mini.spring.mvc.bean.GuestDTO" >
-    	insert into guest(num,id,passwd,content,reg_date) values(guest_seq.NEXTVAL,#{id},#{passwd},#{content},sysdate)
-    </insert>
-    
-    <select id="maxNum" resultType="int">
-    	select NVL(max(num),0) from guest
-    </select>
-    
-    <select id="readNum" resultType="mini.spring.mvc.bean.GuestDTO">
-    	    	select * from guest where num = #{num}
-    </select>
-    
-    <select id="readPasswd" resultType="String" parameterType="int">
-    	select passwd from guest where num = #{num}
-    </select>
-    
-    <update id="updateNum" parameterType="mini.spring.mvc.bean.GuestDTO">
-    	update guest 
-    		<set>
-	    		<if test="writer != null">id=#{id},</if>
-	    			<if test="content != null">content=#{content},</if>
-	    		<if test="passwd != null">passwd=#{passwd}</if>
-	    	
-	    	</set>
-	    	 where num=#{num}
-    </update>
-    
-    <delete id="deleteNum">
-    	delete from guest where num=#{num}
-    </delete>
-    
-    
-    </mapper>
+<select resultType="int" id="count"> select count(*) from guest </select>
+
+<select resultType="mini.spring.mvc.bean.GuestDTO" id="listAll" parameterType="java.util.Map"> SELECT * FROM guest ORDER BY num desc </select>
+
+<insert id="writeInsert" parameterType="mini.spring.mvc.bean.GuestDTO"> insert into guest(num,id,passwd,content,reg_date) values(guest_seq.NEXTVAL,#{id},#{passwd},#{content},sysdate) </insert>
+
+<select resultType="int" id="maxNum"> select NVL(max(num),0) from guest </select>
+
+<select resultType="mini.spring.mvc.bean.GuestDTO" id="readNum"> select * from guest where num = #{num} </select>
+
+<select resultType="String" id="readPasswd" parameterType="int"> select passwd from guest where num = #{num} </select>
+
+
+<update id="updateNum" parameterType="mini.spring.mvc.bean.GuestDTO">
+ update guest 
+
+<set>
+
+<if test="id != null">id=#{id},</if>
+
+<if test="content != null">content=#{content},</if>
+
+<if test="passwd != null">passwd=#{passwd}</if>
+
+</set>
+ where num=#{num} 
+</update>
+
+<delete id="deleteNum"> delete from guest where num=#{num} </delete>
+
+</mapper>

@@ -27,41 +27,7 @@ public class GuestServiceImpl implements GuestService {
 		return mapper.count();
 	}
 
-	@Override
-	public void list(int pageNum , Model model) {
-		int pageSize = 10;
-		//int currentPage = pageNum;
-		int startRow = (pageNum -1) * pageSize +1;
-		int endRow = pageNum * pageSize; 
-		
-		int count = mapper.count();
-		List<GuestDTO> list = Collections.EMPTY_LIST;
-		if(count > 0) {
-			guestMap.put("start", startRow);
-			guestMap.put("end", endRow);
-			list = mapper.list(guestMap);
-			
-		}
-		
-		model.addAttribute("list", list);
-		model.addAttribute("count", count);
-		model.addAttribute("pageNum", pageNum);
-		model.addAttribute("pageSize", pageSize);
-		
-		int pageCount = count / pageSize + ( count % pageSize == 0 ? 0 : 1);
-		 
-        int startPage = (int)(pageNum/10)*10+1;
-		int pageBlock=10;
-        int endPage = startPage + pageBlock-1;
-        if (endPage > pageCount) {
-        	endPage = pageCount;
-        }
-        model.addAttribute("pageCount", pageCount);
-        model.addAttribute("startPage", startPage);
-        model.addAttribute("pageBlock", pageBlock);
-        model.addAttribute("endPage", endPage);
 	
-	}
 	
 	@Override
 	public void create(GuestDTO dto) {
@@ -70,11 +36,7 @@ public class GuestServiceImpl implements GuestService {
 		mapper.writeInsert(dto);
 	}
 
-	@Override
-	public GuestDTO readContent(int num) {
-		mapper.updateCountUp(num);
-		return mapper.readNum(num);
-	}
+	
 
 	@Override
 	public GuestDTO update(int num) {
@@ -111,5 +73,10 @@ public class GuestServiceImpl implements GuestService {
 		Map<String, Object> params = new HashMap<>();
 		return mapper.listAll(params);
 	}
+	
+	@Override
+    public GuestDTO readNum(int num) {
+        return mapper.readNum(num);
+    }
 
 }

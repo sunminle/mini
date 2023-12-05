@@ -8,10 +8,10 @@ import mini.spring.mvc.bean.GuestDTO;
 
 public interface GuestService {
 	public int count();
-	public void list(int pageNum , Model model);
+	
 	public GuestDTO update(int num);
 
-	public GuestDTO readContent(int num);
+
 	
 	public String readPasswd(int num);
 	public int updateNum(GuestDTO dto);
@@ -21,5 +21,7 @@ public interface GuestService {
 	public void create(GuestDTO dto);
 	
 	public List<GuestDTO> listAll();
+	
+	public GuestDTO readNum(int num);
 
 }

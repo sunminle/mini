@@ -29,7 +29,7 @@
  		<tr height="30">
 			<td align=center>
 				<input type="submit" value="글삭제" >
-				<input type="button" value="글목록" onclick="document.location.href='/free/list?pageNum=${pageNum}'">     
+				<input type="button" value="글목록" onclick="document.location.href='/gu/guest?pageNum=${pageNum}'">     
 			</td>
 		</tr>  
 	</table> 
