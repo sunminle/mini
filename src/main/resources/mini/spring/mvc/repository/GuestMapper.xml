@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+    <mapper namespace="mini.spring.mvc.repository.GuestMapper">
+
+<select resultType="int" id="count"> select count(*) from guest </select>
+
+<select resultType="mini.spring.mvc.bean.GuestDTO" id="listAll" parameterType="java.util.Map"> SELECT * FROM guest ORDER BY num desc </select>
+
+<insert id="writeInsert" parameterType="mini.spring.mvc.bean.GuestDTO"> insert into guest(num,id,passwd,content,reg_date) values(guest_seq.NEXTVAL,#{id},#{passwd},#{content},sysdate) </insert>
+
+<select resultType="int" id="maxNum"> select NVL(max(num),0) from guest </select>
+
+<select resultType="mini.spring.mvc.bean.GuestDTO" id="readNum"> select * from guest where num = #{num} </select>
+
+<select resultType="String" id="readPasswd" parameterType="int"> select passwd from guest where num = #{num} </select>
+
+
+<update id="updateNum" parameterType="mini.spring.mvc.bean.GuestDTO">
+ update guest 
+
+<set>
+
+<if test="id != null">id=#{id},</if>
+
+<if test="content != null">content=#{content},</if>
+
+<if test="passwd != null">passwd=#{passwd}</if>
+
+</set>
+ where num=#{num} 
+</update>
+
+<delete id="deleteNum"> delete from guest where num=#{num} </delete>
+
+</mapper>
