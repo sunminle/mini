@@ -67,7 +67,8 @@ public class ImgBoardController {
 	}
 	
 	@RequestMapping("content")
-	public String content(Model model, int num, int pageNum) {
+	public String content(Model model, int num, int pageNum, HttpSession session) {
+		String id = (String)session.getAttribute("memId");
 		List<String> fileNameList = Collections.EMPTY_LIST;
 		service.readcountUp(num);
 		ImgBoardDTO dto = service.content(num);
@@ -84,6 +85,7 @@ public class ImgBoardController {
 		model.addAttribute("fileNameList",fileNameList);
 		model.addAttribute("num",num);
 		model.addAttribute("reviewList",reviewList);
+		model.addAttribute("id",id);
 		return "imgboard/content";
 	}
 	
@@ -97,19 +99,41 @@ public class ImgBoardController {
 	}
 	
 	@RequestMapping("deletePro")
-	public String deletePro(int num, HttpServletRequest request) {
+	public String deletePro(int num, ImgBoardDTO dto, HttpServletRequest request, HttpSession session,Model model) {
+		String id = (String)session.getAttribute("memId");
+		if(id == null) {
+			dto.setWriter(" ");
+		}
+		else {
+			dto.setWriter(id);
+		}
+		dto.setNum(num);
+		int check = service.deleteNumIdChk(dto);
+		
+		
 		
 		String filePath = request.getServletContext().getRealPath("/resources/file/imgBoard/");
-
-		service.deleteFile(num, filePath);
-		service.deleteNum(num);
-		service.deleteReview(num);
-		
+		if(check==1) {
+			service.deleteFile(num, filePath);
+			service.deleteNum(num);
+			service.deleteReview(num);
+		}
+		model.addAttribute("check",check);
 		return "imgboard/deletePro";
 	}
 	
 	@RequestMapping("updateForm")
-	public String updateForm(int num, Model model,int pageNum) {
+	public String updateForm(int num, Model model,int pageNum,HttpSession session,ImgBoardDTO idto) {
+		String id = (String)session.getAttribute("memId");
+		if(id == null) {
+			idto.setWriter(" ");
+		}
+		else {
+			idto.setWriter(id);
+		}
+		idto.setNum(num);
+		int check = service.deleteNumIdChk(idto);
+		
 		ImgBoardDTO dto = service.content(num);
 		List<String> fileNameList = Collections.EMPTY_LIST;
 		if(dto.getIsfile()!=0) {
@@ -119,6 +143,7 @@ public class ImgBoardController {
 		model.addAttribute("fileNameList",fileNameList);
 		model.addAttribute("pageNum",pageNum);
 		model.addAttribute("num",num);
+		model.addAttribute("check",check);
 		return "imgboard/updateForm";
 	}
 	
@@ -142,11 +167,21 @@ public class ImgBoardController {
 	}
 	
 	@RequestMapping("deleteReview")
-	public String deleteReview(Model model, int num , int pageNum, int reviewNum) {
+	public String deleteReview(Model model, int num , int pageNum, int reviewNum, HttpSession session,ImgBoardReviewDTO dto) {
+		String id = (String)session.getAttribute("memId");
+		if(id == null) {
+			id = " ";
+		}
+		dto.setId(id);
+		dto.setNum(reviewNum);
+		int check = service.deleteReviewIdChk(dto);
+		if(check==1) {
 		service.deleteReviewNum(reviewNum);
 		service.reviewMinus(num);
+		}
 		model.addAttribute("pageNum",pageNum);
 		model.addAttribute("num",num);
+		model.addAttribute("check",check);
 		return "imgboard/deleteReview";
 	}
 	

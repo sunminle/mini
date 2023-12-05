@@ -37,4 +37,6 @@ public interface ImgBoardService {
 	public String firstImg(int num);
 	public void deleteReviewNum(int reviewNum);
 	public void reviewMinus(int num);
+	public int deleteNumIdChk(ImgBoardDTO dto);
+	public int deleteReviewIdChk(ImgBoardReviewDTO dto);
 }
