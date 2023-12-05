@@ -4,13 +4,10 @@
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mini.spring.mvc.repository.QnaBoardMapper">
 
-	<select id="maxNum" resultType="int">
-		select NVL(max(num),0) from qnaboard
-	</select>
-	
+
 	
 	<insert id="insert" parameterType="mini.spring.mvc.bean.QnaBoardDTO">
-		insert into qnaboard values(qnaboard_seq.NEXTVAL,#{writer},#{title},#{content},sysdate,0,#{ref},#{re_step},#{re_level},#{isfile})
+		insert into qnaboard(num, writer, title, content, reg_date, readcount) values(qnaboard_seq.NEXTVAL,#{list.writer},#{list.title},#{list.content},sysdate,0)
 	</insert>
 	
 	
@@ -18,6 +15,19 @@
 	<select id = "list" resultType="mini.spring.mvc.bean.QnaBoardDTO">
 		select * from qnaboard order by num desc
 	</select>
+	
+	<insert id = "fileInsert" parameterType="mini.spring.mvc.bean.QnaBoardFileDTO">
+		insert into qnaboard_file values (qnaboard_file_seq.NEXTVAL, #{qnaboardnum},#{filename})
+	</insert>
+	
+	<!-- 게시물 조회 -->
+	<select id="view" resultType="mini.spring.mvc.bean.QnaBoardFileDTO">
+	 select 
+ 	 num, title, writer, content, reg_date
+ 	from qnaboard
+ 	   
+	</select>
+	
 </mapper>
 
 

@@ -14,11 +14,6 @@ public class QnaBoardServiceImpl implements QnaBoardService{
 	@Autowired
 	private QnaBoardMapper mapper;
 
-	@Override
-	public int maxNum() {
-		
-		return mapper.maxNum();
-	}
 
 	@Override
 	public void insert(QnaBoardDTO dto) {
@@ -31,6 +26,25 @@ public class QnaBoardServiceImpl implements QnaBoardService{
 	public List<QnaBoardDTO> list() {
 		
 		return mapper.list();
+	}
+
+	@Override
+	public int maxNum() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public List<QnaBoardDTO> view() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void view(QnaBoardDTO dto) throws Exception {
+		// TODO Auto-generated method stub
+		
 	}
 
 
