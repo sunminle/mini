@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+    <mapper namespace = "mini.spring.mvc.repository.MemberMapper">
+    	<select id="loginCheck" resultType="int" parameterType="mini.spring.mvc.bean.MemberDTO">
+    		select NVL(max(status),0) from blogmember where id=#{id} and passwd=#{passwd} and status > 0
+    	</select>
+    	
+    	<select id="member" resultType="mini.spring.mvc.bean.MemberDTO">
+    		select * from blogmember where id=#{id}
+    	</select>
+    	<update id="memberUpdate" parameterType="mini.spring.mvc.bean.MemberDTO">
+    		update blogmember
+	    		 <set>
+	    			<if test="passwd != null and passwd != '' ">passwd=#{passwd},</if>
+	    			<if test="name != null and name != '' ">name=#{name},</if>
+	    			<if test="nickname != null and nickname != '' ">nickname=#{nickname},</if>
+	    			<if test="introduce != null and introduce != '' ">introduce=#{introduce}</if>   		
+	    		</set>
+    		where id=#{id}
+    	</update>
+    	
+    	<update id="statusChange" parameterType="String">update blogmember set status=0 where id=#{id} and passwd=#{passwd} </update>
+
+		<update id="statusAdminChange" parameterType="mini.spring.mvc.bean.MemberDTO">update blogmember set status=#{status} where id=#{id} </update>
+    	
+    	
+    	<select id="getMemberList" resultType="mini.spring.mvc.bean.MemberDTO">
+        	select * from blogmember
+    	</select>
+    	
+    <insert id="userInput" parameterType="mini.spring.mvc.bean.MemberDTO">
+     	insert into blogmember values(blogmember_seq.NEXTVAL, #{id}, #{passwd}, #{name}, #{nickname}, sysdate, #{introduce}, #{status, jdbcType=NUMERIC})
+    </insert>
+    </mapper>
