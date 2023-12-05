@@ -21,3 +21,8 @@
              <input type="button" value="회원정보변경" onclick="javascript:window.location='/mem/modifyForm'" size="8" maxlength="12">
              
 </form>
+
+<input type = "button" value = "이미지게시판" onclick = "window.location='/imgboard/list'">
+<input type = "button" value = "방명록" onclick = "window.location='/gu/guest'">
+<input type = "button" value = "Q&A게시판" onclick = "window.location='/qnaboard/list'">
+<input type = "button" value = "공지게시판" onclick = "window.location='/notice/board'">
