@@ -50,7 +50,7 @@
   }
   
 </style>
-
+<input type = "button" value = "뒤로가기" onclick = "window:location='/mem/main'">
 <div class="board-container">
 	<c:if test="${count == 0}">
 		<center>

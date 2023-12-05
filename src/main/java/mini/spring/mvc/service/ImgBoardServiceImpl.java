@@ -254,4 +254,15 @@ public class ImgBoardServiceImpl implements ImgBoardService{
 		mapper.reviewMinus(num);
 	}
 
+	@Override
+	public int deleteNumIdChk(ImgBoardDTO dto) {
+		return mapper.deleteNumIdChk(dto);
+	}
+
+	@Override
+	public int deleteReviewIdChk(ImgBoardReviewDTO dto) {
+		return mapper.deleteReviewIdChk(dto);
+	}
+
+
 }

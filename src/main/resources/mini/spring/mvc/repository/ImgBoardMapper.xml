@@ -102,6 +102,13 @@
 	<update id="reviewMinus">
 		update imgboard set review = review-1 where num = #{num}
 	</update>
-
+	
+	<select id="deleteNumIdChk" parameterType="mini.spring.mvc.bean.ImgBoardDTO" resultType="int">
+		select count(*) from imgboard where num = #{num} and writer = #{writer}
+	</select>
+	
+	<select id="deleteReviewIdChk" parameterType="mini.spring.mvc.bean.ImgBoardReviewDTO" resultType="int">
+		select count(*) from imgboard_review where num = #{num} and id = #{id}
+	</select>
 	
 </mapper>
