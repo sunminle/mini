@@ -23,7 +23,7 @@
           <input type="password" name="passwd2" placeholder="password check">
           <input type="text" name="name" placeholder="name">
           <input type="text" name="nickname" placeholder="nickname">
-           <input type="text" name="introduce" placeholder="자기소개">
+           <input type="text" name="introduce" placeholder="introduce">
           <input type="submit" name="confirm" value="등   록" >
           <input type="button" value="가입안함" onclick="javascript:window.location='/mem/signInUp'">
         </form>
@@ -43,14 +43,14 @@
       </div>
     </div>
     <div class="leftbox">
-      <h2 class="title"><span>BLOG</span>&<br>자고싶다</h2>
+      <h2 class="title"><span>BLOG</span>&<br>login</h2>
       <p class="desc"> Have a nice <span>day</span></p>
       <img class="flower smaller" src="https://image.ibb.co/d5X6pn/1357d638624297b.jpg" alt="1357d638624297b" border="0">
       <p class="account">have an account?</p>
       <button class="button" id="signin">login</button>
     </div>
     <div class="rightbox">
-      <h2 class="title"><span>BLOG</span>&<br>배고프다</h2>
+      <h2 class="title"><span>BLOG</span>&<br>sign up</h2>
       <p class="desc"> Wellcome To The <span>Family</span></p>
       <img class="flower" src="https://preview.ibb.co/jvu2Un/0057c1c1bab51a0.jpg"/>
       <p class="account">don't have an account?</p>
