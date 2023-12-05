@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,14 +29,16 @@ public class ImgBoardController {
 	
 	@RequestMapping("list")
 	public String test(Model model, @RequestParam(value="pageNum", defaultValue = "1") int pageNum) {
+		
 		service.list(pageNum,model);
 
 		return "imgboard/list";
 	}
 	
 	@RequestMapping("writeForm")
-	public String writeForm() {
-
+	public String writeForm(HttpSession session,Model model) {
+		String id = (String)session.getAttribute("memId");
+		model.addAttribute("id",id);
 		return "imgboard/writeForm";
 	}
 	
