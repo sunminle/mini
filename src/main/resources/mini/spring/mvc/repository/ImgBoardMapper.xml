@@ -102,5 +102,6 @@
 	<update id="reviewMinus">
 		update imgboard set review = review-1 where num = #{num}
 	</update>
+
 	
 </mapper>
