@@ -52,6 +52,12 @@
 				<div class="flex-grow-1">
 					<h3 class="mb-0">${notice.title} </h3>
 					<div class="subheading mb-3">${notice.writer }</div>
+					<hr>
+					<c:if test="${not empty notice.img}">
+						<div class="mb-3">
+							<img src="/resources/file/notice/${notice.img}" alt="업로드 이미지" width="1000px">
+						</div>
+					</c:if>
 					<p>${notice.content }</p>
 				</div>
 				<div class="flex-shrink-0">

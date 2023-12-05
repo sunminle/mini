@@ -14,5 +14,6 @@ public class NoticeDTO {
 	private String content;
 	private Date reg_date;
 	private int readcount;	
+	private String img;
 
 }
