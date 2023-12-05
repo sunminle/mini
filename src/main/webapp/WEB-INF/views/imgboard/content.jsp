@@ -199,13 +199,19 @@
             <a>등록된 댓글이 없습니다.</a> <br/> <br/>
             <a>가장 먼저 댓글을 등록해보세요!!</a>
         </c:if>
+        <c:if test="${id!=null}">
         <form method="post" name="reviewform" action="/imgboard/reviewPro">
             <textarea  name="content"></textarea>
             <input type="hidden" value="${num}" name="imgboardnum">
             <input type="hidden" value="${pageNum}" name="pageNum">
-            <input type="hidden" value="testID" name="id">
+            <input type="hidden" value="${id}" name="id">
             <input type="submit" value="댓글 등록">
         </form>
+        </c:if>
+         <c:if test="${id==null}">
+         <br/>
+         <a>댓글은 로그인 후 작성 가능합니다.</a>
+         </c:if>
         <br/>
       <c:if test="${!empty reviewList}">
     <div class="review-list">
